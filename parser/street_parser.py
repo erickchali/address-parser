@@ -3,8 +3,17 @@ import re
 regex_pattern = r"""
     (?x)
     (?i)
-    (?P<street>\w+)\s+
-    (?P<housenumber>\d+[a-zA-Z]?)
+    (?:
+        (?:
+            (?P<street>\w+)\s+
+            (?P<housenumber>\d+[a-zA-Z]?)
+        )
+        |
+        (?:
+            (?P<street2>(\w*?\s*?){1,10})\s+
+            (?P<housenumber2>\d+\s?[a-zA-Z]?)
+        )
+    )
 """
 regex_pattern = re.compile(regex_pattern)
 

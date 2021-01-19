@@ -29,3 +29,15 @@ def test_simple_street_address():
     assert isinstance(address_dict, dict)
     assert address_dict.get("street") == "Blaufeldweg"
     assert address_dict.get("housenumber") == "123B"
+
+
+def test_complicated_street_address():
+    address_dict = parse_street_address("Am Bächle 23")
+    assert isinstance(address_dict, dict)
+    assert address_dict.get("street2") == "Am Bächle"
+    assert address_dict.get("housenumber2") == "23"
+
+    address_dict = parse_street_address("Auf der Vogelwiese 23 b")
+    assert isinstance(address_dict, dict)
+    assert address_dict.get("street2") == "Auf der Vogelwiese"
+    assert address_dict.get("housenumber2") == "23 b"
