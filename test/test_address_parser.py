@@ -7,7 +7,7 @@ def test_parse_empty_string():
 
 
 def test_parse_non_string_value():
-    with pytest.raises(TypeError):
+    with pytest.raises(AttributeError):
         assert isinstance(parse_street_address(123), dict)
         assert isinstance(parse_street_address([]), dict)
         assert isinstance(parse_street_address({}), dict)
@@ -15,29 +15,46 @@ def test_parse_non_string_value():
 
 
 def test_simple_street_address():
-    address_dict = parse_street_address("Winterallee 3")
-    assert isinstance(address_dict, dict)
-    assert address_dict.get("street") == "Winterallee"
-    assert address_dict.get("housenumber") == "3"
+    parsed_address = parse_street_address("Winterallee 3")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Winterallee"
+    assert parsed_address.get("housenumber") == "3"
 
-    address_dict = parse_street_address("Musterstrasse 45")
-    assert isinstance(address_dict, dict)
-    assert address_dict.get("street") == "Musterstrasse"
-    assert address_dict.get("housenumber") == "45"
+    parsed_address = parse_street_address("Musterstrasse 45")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Musterstrasse"
+    assert parsed_address.get("housenumber") == "45"
 
-    address_dict = parse_street_address("Blaufeldweg 123B")
-    assert isinstance(address_dict, dict)
-    assert address_dict.get("street") == "Blaufeldweg"
-    assert address_dict.get("housenumber") == "123B"
+    parsed_address = parse_street_address("Blaufeldweg 123B")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Blaufeldweg"
+    assert parsed_address.get("housenumber") == "123B"
 
 
 def test_complicated_street_address():
-    address_dict = parse_street_address("Am Bächle 23")
-    assert isinstance(address_dict, dict)
-    assert address_dict.get("street2") == "Am Bächle"
-    assert address_dict.get("housenumber2") == "23"
+    parsed_address = parse_street_address("Am Bächle 23")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Am Bächle"
+    assert parsed_address.get("housenumber") == "23"
 
-    address_dict = parse_street_address("Auf der Vogelwiese 23 b")
-    assert isinstance(address_dict, dict)
-    assert address_dict.get("street2") == "Auf der Vogelwiese"
-    assert address_dict.get("housenumber2") == "23 b"
+    parsed_address = parse_street_address("Auf der Vogelwiese 23 b")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Auf der Vogelwiese"
+    assert parsed_address.get("housenumber") == "23 b"
+
+
+def test_other_countries_address():
+    parsed_address = parse_street_address("4, rue de la revolution")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "rue de la revolution"
+    assert parsed_address.get("housenumber") == "4"
+
+    parsed_address = parse_street_address("200 Broadway Av")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Broadway Av"
+    assert parsed_address.get("housenumber") == "200"
+
+    parsed_address = parse_street_address("Calle Aduana, 29")
+    assert isinstance(parsed_address, dict)
+    assert parsed_address.get("street") == "Calle Aduana"
+    assert parsed_address.get("housenumber") == "29"
