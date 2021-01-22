@@ -25,6 +25,6 @@ jobs:
     - name: Run Tox
       # Run tox using the version of Python in `PATH`
       run: |
-        flask db migrateK
+        flask db migrate
         flask db upgrade
         tox py
