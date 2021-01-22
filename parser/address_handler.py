@@ -56,13 +56,13 @@ STREET_HOUSE_REGEX = r"""
     (?x)
     (?i)
     (?P<street>\b[a-zA-Z](\w+?\s?){1,10}\b)\s+
-    (?P<housenumber>\d+[a-zA-Z]?\s?[a-zA-Z]?)
+    (?P<house_number>\d+[a-zA-Z]?\s?[a-zA-Z]?)
 """
 
 
 OTHER_COUNTRIES_REGEX = r"""
     (?x)
     (?i)
-    (?P<housenumber>\d+)\s*?
+    (?P<house_number>\d+)\s*?
     (?P<street>\b[a-zA-Z](\w+?\s?){1,10}\b)
 """

@@ -1,12 +1,17 @@
 from flask import Flask
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+from flask_migrate import Migrate, MigrateCommand
+from config import AppConfig
+from api import healthcheck_bp, address_bp
 
 
-if __name__ == '__main__':
-    app.run()
+def create_app(app_config=AppConfig):
+    app = Flask(__name__)
+    app.config.from_object(app_config)
+    app.register_blueprint(healthcheck_bp)
+    app.register_blueprint(address_bp, url_prefix="/address")
+
+    from database.db_models import db
+    db.init_app(app)
+    migrate = Migrate(app, db)  # noqa
+    app.cli.add_command("db", MigrateCommand)
+    return app
