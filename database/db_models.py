@@ -1,4 +1,4 @@
-from database.db_setup import db
+from database.db_setup import db, ma
 
 
 class Address(db.Model):
@@ -9,3 +9,8 @@ class Address(db.Model):
                            server_default=db.func.now(), onupdate=db.func.now())
     updated_at = db.Column(db.DateTime(timezone=True),
                            server_default=db.func.now(), onupdate=db.func.now())
+
+
+class AddressSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "street_name", "house_number", "created_at")

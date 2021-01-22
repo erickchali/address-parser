@@ -10,8 +10,10 @@ def create_app(app_config=AppConfig):
     app.register_blueprint(healthcheck_bp)
     app.register_blueprint(address_bp, url_prefix="/address")
 
-    from database.db_models import db
+    from database.db_models import db, ma
     db.init_app(app)
+    ma.init_app(app)
     migrate = Migrate(app, db)  # noqa
+
     app.cli.add_command("db", MigrateCommand)
     return app

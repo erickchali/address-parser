@@ -45,7 +45,7 @@ def test_non_supported_address_format(client):
 
 
 def test_supported_address_format(client):
-    response = client.post(parser_endpoint, json={"address": "Calle De Las Golondrinas, 75"})
+    response = client.post(parser_endpoint, json={"address": "77, Bleecker Street"})
     assert response.status_code == 200
-    assert response.json["street"] == "Calle De Las Golondrinas"
-    assert response.json["house_number"] == "75"
+    assert response.json["street_name"] == "Bleecker Street"
+    assert response.json["house_number"] == "77"

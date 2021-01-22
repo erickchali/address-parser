@@ -9,3 +9,4 @@ class AppConfig:
     ENV = env.get("FLASK_ENV", "production")
     SQLALCHEMY_DATABASE_URI = env.get("SQLALCHEMY_DATABASE_URI", f"sqlite:///{APP_DIR}/db.sqlite3")
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    JSON_SORT_KEYS = False
